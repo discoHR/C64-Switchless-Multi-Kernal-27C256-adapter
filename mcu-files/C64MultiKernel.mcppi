@@ -34,9 +34,9 @@ Count=0
 Count=0
 [SEARCH_PATH]
 Count=3
-Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\
+Path0=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Defs\
 Path1=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\
-Path2=C:\MyProjects\C64MultiKernel\
+Path2=C:\Users\disco\git\C64-Switchless-Multi-Kernal-27C256-adapter\mcu-files\
 [HEADER_PATH]
 Count=0
 [HEADERS]
@@ -66,7 +66,6 @@ File17=Sprinti
 File18=Sprintl
 File19=Time
 File20=Trigonometry
-[EXPANDED NODES]
-Node1=Sources
-Node2=Output Files
-Count=2
+[EXPANDED_NODES]
+Node0=Sources
+Count=1

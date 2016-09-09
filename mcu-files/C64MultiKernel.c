@@ -1,4 +1,4 @@
-// C64MultiKernel.c Rev 1.1-disco (2016-09-09)
+// C64MultiKernel.c Rev 1.1-disco (2016-09-10)
 // coded by BWACK in mikroC
 // -disco variant with instant select-mode on reset-button press
 
@@ -20,14 +20,14 @@
 
 // finite state machine
 #define IDLE_STATE 0
-#define RESET_STATE 1
+//#define RESET_STATE 1
 #define SELECT_STATE 2
 
 
 char STATE=IDLE_STATE;
 char buttontimer=0, old_button;
 char kernalno=0;
-
+char ignorereset=0;
 
 void setkernal(char _kernal) {
   GPIO.B4=0;
@@ -44,6 +44,7 @@ void intres(void) {
   RED_LED=~RED_LED;
   delay_ms(200); // was 500
   TRISIO.B1=1; // release INTRES_N
+  delay_ms(3000); // potential fix for double-reset cartridges
 }
 
 void setLED(void) {
@@ -73,51 +74,62 @@ void init(void) {
     delay_ms(50);
   }
   
+  delay_ms(2000); // ignore reset during power up
 }
 
 void main() {
-  char i;
+//  char i;
 
   init();
   while(1) {
     setLED();
     if(STATE==IDLE_STATE) {
-      if(!RESTORE_N) buttontimer++;
-      else buttontimer=0;
+      if(!RESTORE_N)
+        buttontimer++;
+      else
+        buttontimer=0;
       delay_ms(100);
-      if (buttontimer>15 || !INTRST_N) { STATE=SELECT_STATE; old_button=0; kernalno=0; buttontimer=0;
-        RED_LED=~RED_LED;
-        delay_ms(50);
-        RED_LED=~RED_LED;
-        delay_ms(50);
-
+      if (buttontimer>15 || !INTRST_N) {
+         // either the restore key was long-pressed or the reset button was short-pressed
+         STATE=SELECT_STATE;
+         old_button=kernalno=buttontimer=0;
+         ignorereset=!INTRST_N; // ignore reset in the SELECT_STATE if it was the reset button
+         RED_LED=~RED_LED;
+         delay_ms(50);
+         RED_LED=~RED_LED;
+         delay_ms(50);
       }
-    }
-    
-    if(STATE==SELECT_STATE) {
+    } else if(STATE==SELECT_STATE) {
       if(!old_button && RESTORE_N && INTRST_N ) {
         old_button=1;
         delay_ms(20);
       }
 
       if(old_button && (!RESTORE_N || !INTRST_N) ) {
-        old_button=0;
+        old_button=ignorereset=0; // it's ok to reset after this
         kernalno++;
         kernalno&=0x03;
         setkernal(kernalno);
         delay_ms(20);
       }
 
-      if( RESTORE_N && INTRST_N ) {
-        i=0;
+      if (RESTORE_N && INTRST_N) {
+        // both buttons are released
+//        i=0;
         buttontimer++;
         delay_ms(50);
-      } else buttontimer=0;
+      } else {
+        // at least one button is pressed
+        buttontimer=0;
+      }
 
-      if (buttontimer>30) {
+      if (buttontimer > 30) {
+        // do the actual reset if needed and go back to idle state
         STATE=IDLE_STATE;
         old_button=1;
-        intres();
+        if (!ignorereset) {
+          intres();
+        }
         buttontimer=0;
       }
     }
