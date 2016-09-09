@@ -3,6 +3,7 @@ README.txt (2016-09-10)
 C64 Switchless Multi Kernel Switch
 - 27C256 rom adapter for C64's with long motherboard
 Files designed by BWACK
+Reset button code modified by discoHR
 Note: longboards (not 250469) and shortboards (250469) are sometimes mixed up with C64C and C64, so you must open the machine up to be sure you've got the longboard.
 
 Project links:
@@ -15,6 +16,6 @@ Changelog:
 
 2016-09-10
 - forked BWACK's project
-- blindly modified behavior of reset button to always behave as in select mode (untested)
+- blindly modified behavior of reset button to always be in select mode (untested)
 
 Rev 1.1 (2016-09-08): sch+brd. Swapped signals #RESTORE and RED_LED, because GP3 on the MCU is input only.
