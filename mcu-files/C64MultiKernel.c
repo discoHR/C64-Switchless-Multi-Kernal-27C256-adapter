@@ -54,6 +54,7 @@ void setLED(void) {
 
 void init(void) {
   char _i;
+  
   OPTION_REG=0;
   WPU.WPU1=1;
   CMCON=0x07; // digital IO
@@ -63,7 +64,7 @@ void init(void) {
   RESTORE_N=1;
   RED_LED=0;
   kernalno=EEPROM_READ(0x00);
-  if(kernalno>3) kernalno=0; // incase EEPROM garbage.
+  kernalno&=3; // in case of EEPROM garbage
   setkernal(kernalno);
   intres();
 
@@ -78,8 +79,6 @@ void init(void) {
 }
 
 void main() {
-//  char i;
-
   init();
   while(1) {
     setLED();
@@ -92,7 +91,7 @@ void main() {
       if (buttontimer>15 || !INTRST_N) {
          // either the restore key was long-pressed or the reset button was short-pressed
          STATE=SELECT_STATE;
-         old_button=kernalno=buttontimer=0;
+         old_button=buttontimer=0;
          ignorereset=!INTRST_N; // ignore reset in the SELECT_STATE if it was the reset button
          RED_LED=~RED_LED;
          delay_ms(50);
@@ -115,7 +114,6 @@ void main() {
 
       if (RESTORE_N && INTRST_N) {
         // both buttons are released
-//        i=0;
         buttontimer++;
         delay_ms(50);
       } else {
