@@ -44,7 +44,7 @@ void intres(void) {
   RED_LED=~RED_LED;
   delay_ms(200); // was 500
   TRISIO.B1=1; // release INTRES_N
-  delay_ms(3000); // potential fix for double-reset cartridges
+  delay_ms(250); // potential fix for double-reset cartridges
 }
 
 void setLED(void) {
@@ -75,7 +75,7 @@ void init(void) {
     delay_ms(50);
   }
   
-  delay_ms(2000); // ignore reset during power up
+  delay_ms(500); // ignore reset during power up
 }
 
 void main() {
