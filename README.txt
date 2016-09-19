@@ -7,6 +7,10 @@ Bwack's project link:
 
 Changelog:
 
+2016-09-19
+- finally fixed build issues, CFG file was missing
+- minor changes in delays
+
 2016-09-18
 - last used kernal is now correctly selected by default
 
