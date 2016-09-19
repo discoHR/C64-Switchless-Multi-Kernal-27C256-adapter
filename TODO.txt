@@ -1,0 +1,1 @@
+- use software reset button debouncing, sometimes a single press is registered twice
