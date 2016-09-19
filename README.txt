@@ -6,6 +6,7 @@ Bwack's project link:
   Github:   https://github.com/bwack/C64-Switchless-Multi-Kernal-27C256-adapter
 
 Changelog:
+
 2016-09-18
 - last used kernal is now correctly selected by default
 
