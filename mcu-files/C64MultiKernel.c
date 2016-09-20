@@ -22,7 +22,7 @@
 // differ much. You can hold the restore key during power-on to toggle between
 // the two themes.
 // Theme #1: red, green, blue, cyan
-// Theme #2: red, lime, purple, cyan
+// Theme #2: red, lime, magenta, cyan
 
 // MCU: PIC12F629 8 pin PDIP
 // use any pic-programmer and load the .hex file
@@ -36,7 +36,7 @@
 #define A14         GPIO.B5
 
 // input/outputs
-#define INTRST_N    GPIO.B1 // open-collector
+#define INTRST_N    GPIO.B1     // open-collector
 
 // EEPROM addresses used for configuration persistance
 #define EEPROM_ADDR_KERNAL          0
@@ -144,7 +144,7 @@ void main() {
 
           case SELECT:
               if (!old_button && RESTORE_N && INTRST_N) {
-                  old_button=1;
+                  old_button = 1;
               } else if (old_button && (!RESTORE_N || !INTRST_N)) {
                   old_button = ignoreReset = 0; // it's ok to reset after this
                   ++kernalIndex;
@@ -171,7 +171,7 @@ void main() {
 
           default:
               // something is wrong, flash like crazy
-              A13 = A14 = 0; // pull A13 and A14 low, red is clearly visible
+              A13 = A14 = 0; // pull A13 and A14 low, makes red clearly visible
               RED_LED ^= 1;
               break;
         }

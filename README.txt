@@ -22,7 +22,7 @@ There are two LED colour themes but due to hardware limitations, they don't
 differ much. You can hold the restore key during power-on to toggle between
 the two themes.
 Theme #1: red, green, blue, cyan
-Theme #2: red, lime, purple, cyan
+Theme #2: red, lime, magenta, cyan
 
 
 Changelog:
