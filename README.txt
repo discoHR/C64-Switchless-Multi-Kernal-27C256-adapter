@@ -27,6 +27,9 @@ Theme #2: red, lime, purple, cyan
 
 Changelog:
 
+2016-09-20
+- kernal index is saved only when resetting after timeout, not while browsing
+
 2016-09-19
 - finally fixed build issues, CFG file was missing
 - minor changes in delays

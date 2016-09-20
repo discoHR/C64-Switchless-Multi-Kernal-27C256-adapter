@@ -54,12 +54,15 @@ byte redInverted;
 void SetKernal(byte index) {
     A13 = A14 = 0;
     GPIO |= index << 4;
+    Delay_ms(20);
+}
+
+void SaveKernal(byte index) {
     // don't write unless necessary
     if (index != oldKernalIndex) {
         EEPROM_Write(EEPROM_ADDR_KERNAL, index);
         oldKernalIndex = index;
     }
-    Delay_ms(20);
 }
 
 void DoReset(void) {
@@ -121,9 +124,9 @@ void main() {
       switch (state) {
           case IDLE:
               if (!RESTORE_N) {
-                  buttonTimer++;
+                  ++buttonTimer;
               } else {
-                  buttonTimer=0;
+                  buttonTimer = 0;
               }
               if (buttonTimer > 15 || !INTRST_N) {
                   // either the restore key was long-pressed or
@@ -156,17 +159,20 @@ void main() {
                       if (!ignoreReset) {
                           DoReset();
                       }
-                      buttonTimer=0;
+                      SaveKernal(kernalIndex);
+                      buttonTimer = 0;
                       state = IDLE;
                   }
               } else {
                   // at least one button is pressed
-                  buttonTimer=0;
+                  buttonTimer = 0;
               }
               break;
 
           default:
-              RED_LED ^= 1; // something is wrong, flash like crazy
+              // something is wrong, flash like crazy
+              A13 = A14 = 0; // pull A13 and A14 low, red is clearly visible
+              RED_LED ^= 1;
               break;
         }
         Delay_ms(50);
