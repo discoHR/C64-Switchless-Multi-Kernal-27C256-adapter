@@ -1,5 +1,6 @@
-*.asm
-*.asm.ini
+build
+private
+*.asm*
 *.bmk
 *.brk
 *.c.ini
@@ -12,3 +13,15 @@
 *.mcl
 *.mcppi_callertable.txt
 *.user.dic
+*.cmf
+*.elf
+*.hxl
+*.lst
+*.map
+*.mum
+*.obj
+*.rlf
+*.sdb
+*.sym
+memoryfile.xml
+MPLABXLog.xml*

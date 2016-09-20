@@ -29,6 +29,7 @@ Changelog:
 
 2016-09-20
 - kernal index is saved only when resetting after timeout, not while browsing
+- ported project to MPLAB X
 
 2016-09-19
 - finally fixed build issues, CFG file was missing
