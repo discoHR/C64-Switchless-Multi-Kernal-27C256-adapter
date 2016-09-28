@@ -1,5 +1,3 @@
-README.txt (2016-09-10)
-
 Reset modification for Bwack's C64 Switchless Multi Kernal Switch.
 
 Bwack's project link:
@@ -22,7 +20,7 @@ There are two LED colour themes but due to hardware limitations, they don't
 differ much. You can hold the restore key during power-on to toggle between
 the two themes.
 Theme #1: red, green, blue, cyan
-Theme #2: red, lime, magenta, cyan
+Theme #2: red, lime, magenta, white (actually looks like cyan)
 
 
 Changelog:
